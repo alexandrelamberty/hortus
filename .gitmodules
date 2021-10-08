@@ -1,0 +1,3 @@
+[submodule "hortus-server"]
+	path = hortus-server
+	url = git@github.com:alexandrelamberty/hortus-server.git
