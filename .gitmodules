@@ -1,9 +1,12 @@
 [submodule "hortus-server"]
 	path = hortus-server
 	url = git@github.com:alexandrelamberty/hortus-server.git
+	branch = master
 [submodule "hortus-web-client"]
 	path = hortus-web-client
 	url = git@github.com:alexandrelamberty/hortus-web-client.git
+	branch = master
 [submodule "hortus-wireless-temperature-sensor"]
 	path = hortus-wireless-temperature-sensor
 	url = git@github.com:alexandrelamberty/hortus-wireless-temperature-sensor
+	branch = master
