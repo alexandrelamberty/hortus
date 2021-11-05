@@ -7,12 +7,3 @@
 [submodule "hortus-wireless-temperature-sensor"]
 	path = hortus-wireless-temperature-sensor
 	url = git@github.com:alexandrelamberty/hortus-wireless-temperature-sensor
-[submodule "hortus-design-guide"]
-	path = hortus-design-guide
-	url = git@github.com:alexandrelamberty/hortus-design-guide
-[submodule "hortus-sensors-dashboard"]
-	path = hortus-sensors-dashboard
-	url = git@github.com:alexandrelamberty/hortus-sensors-dashboard
-[submodule "hortus-sensors-server"]
-	path = hortus-sensors-server
-	url = git@github.com:alexandrelamberty/hortus-sensors-server
