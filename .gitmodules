@@ -1,7 +1,3 @@
-[submodule "hortus-server"]
-	path = hortus-server
-	url = git@github.com:alexandrelamberty/hortus-server.git
-	branch = master
 [submodule "hortus-web-client"]
 	path = hortus-web-client
 	url = git@github.com:alexandrelamberty/hortus-web-client.git
