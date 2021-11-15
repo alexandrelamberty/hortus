@@ -6,3 +6,7 @@
 	path = hortus-wireless-temperature-sensor
 	url = git@github.com:alexandrelamberty/hortus-wireless-temperature-sensor
 	branch = master
+[submodule "hortus-server"]
+	path = hortus-server
+	url = git@github.com:alexandrelamberty/hortus-server
+	branch = master
