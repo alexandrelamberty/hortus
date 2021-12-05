@@ -6,7 +6,7 @@ Gardening planner, monitoring and automation solution.
 
 ## Features
 
-- Manage a collection crops.
+- Manage a collection of crops.
 - Create culture of crops.
 - Manage the different phases of the culture; seeding, planting, harvesting.
 - Create your gardening spaces, plants and pots in a visual environment.
