@@ -1,0 +1,114 @@
+version: "3.8"
+
+services:
+  proxy:
+    image: nginx
+    container_name: hortus-proxy
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - api
+      - web
+    ports:
+      - 80:80
+    command: [nginx, "-g", "daemon off;"]
+  api:
+    image: alexandrelamberty/hortus-api:${API_IMAGE_TAG}
+    environment:
+      - ENV=${API_NODE_ENV}
+      - PAIRING_KEY=${API_PAIRING_KEY}
+      - JWT_SECRET=${API_JWT_SECRET}
+      - JWT_EXPIRE=${API_JWT_EXPIRE}
+      - BCRYPT_HASH=${API_BCRYPT_HASH}
+      - DATABASE_URI=${API_DATABASE_URI}
+      - STATIC_DIR=${API_STATIC_DIR}
+      - UPLOAD_PATH=${API_UPLOAD_PATH}
+      - CACHE_HOST=${CACHE_HOST}
+      - CACHE_PORT=${CACHE_PORT}
+      - CACHE_TTL=${CACHE_TTL}
+      - SESSION_HOST=${SESSION_HOST}
+      - SESSION_PORT=${SESSION_PORT}
+      - SESSION_TTL=${SESSION_TTL}
+    ports:
+      - 3333:${API_PORT}
+    volumes:
+      - media_data:/usr/src/app/upload
+    depends_on:
+      - database
+      - cache
+      - session
+    restart: unless-stopped
+  web:
+    image: alexandrelamberty/hortus-web-app:${WEB_APP_IMAGE_TAG}
+    environment:
+      - REACT_APP_NODE_ENV=${WEB_APP_ENV}
+      - REACT_APP_API_URL=${WEB_APP_API_URL}
+      - REACT_APP_TEST_ENV="HELLOOOOOO"
+    ports:
+      - 3000:${WEB_APP_PORT}
+    depends_on:
+      - api
+  database:
+    image: mongo:5.0.0 # < 5 for AVX CPU support (Elitebook 254Op)
+    container_name: hortus-database
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DATABASE_ROOT_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${DATABASE_NAME}
+      - MONGO_INITDB_USER=${DATABASE_USERNAME}
+      - MONGO_INITDB_PWD=${DATABASE_PASSWORD}
+      - MONGODB_SYSTEM_LOG_VERBOSITY=3
+    command: --auth
+    ports:
+      - 27017:${DATABASE_MAP_PORT}
+    volumes:
+      - database_data:/data/db
+      - database_config:/data/configdb
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    restart: always
+  cache:
+    image: redis:latest
+    container_name: hortus-cache
+    # command: ["redis-server", "--bind", "redis", "--port", "${CACHE_PORT}"]
+    ports:
+      - ${CACHE_PORT}:${CACHE_PORT}
+    volumes:
+      - cache_data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    restart: always
+  session:
+    image: redis:latest
+    container_name: hortus-session
+    command: --port ${SESSION_PORT}
+    ports:
+      - ${SESSION_PORT}:${SESSION_PORT}
+    volumes:
+      - session_data:/data
+    restart: always
+  mongo-express:
+    image: mongo-express
+    container_name: hortus-mongo-express
+    restart: always
+    ports:
+      - ${MONGO_EXPRESS_PORT}:${MONGO_EXPRESS_PORT}
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${DATABASE_ROOT_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${DATABASE_ROOT_PASSWORD}
+      ME_CONFIG_MONGODB_URL: mongodb://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@database:27017/${DATABASE_NAME}
+    depends_on:
+      - database
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: hortus-redis-commander
+    environment:
+      - REDIS_HOSTS=cache:cache:${CACHE_PORT},session:session:${SESSION_PORT}
+    ports:
+      - ${REDIS_COMMANDER_PORT}:${REDIS_COMMANDER_PORT}
+    depends_on:
+      - cache
+volumes:
+  cache_data:
+  session_data:
+  database_data:
+  database_config:
+  media_data:
