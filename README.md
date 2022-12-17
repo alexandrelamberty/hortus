@@ -9,7 +9,7 @@ Hortus is a personal gardening planner application.
 - [ ] Create culture of seed with the different; seeding,
 planting, harvesting.
 - [ ] Create your gardening spaces, plants and pots in a visual environment.
-- [ Alerts & Notifications]
+- [ ] Alerts & Notifications]
 
 ## Technologies, languages, frameworks
 
