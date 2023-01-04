@@ -1,0 +1,9 @@
+[submodule "hortus-api"]
+	path = hortus-api
+	url = git@github.com:alexandrelamberty/hortus-api.git
+[submodule "hortus-web-app"]
+	path = hortus-web-app
+	url = git@github.com:alexandrelamberty/hortus-web-app.git
+[submodule "hortus-api-spec"]
+	path = hortus-api-spec
+	url = git@github.com:alexandrelamberty/hortus-api-spec.git
