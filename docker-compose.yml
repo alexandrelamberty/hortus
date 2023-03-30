@@ -14,7 +14,6 @@ services:
     command: [nginx, "-g", "daemon off;"]
   api:
     image: alexandrelamberty/hortus-api:${API_IMAGE_TAG}
-    container_name: hortus-api
     environment:
       - ENV=${API_NODE_ENV}
       - PAIRING_KEY=${API_PAIRING_KEY}

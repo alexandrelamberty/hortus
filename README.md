@@ -148,7 +148,6 @@ The stack is composed of 5 services. see: `docker-compose.yml`
 
   A cache for the the API requests, [Redis](https://hub.docker.com/_/redis).
 
-
 When starting the stack Docker will look for a local version of the API and Web App service, if non are present it will download them from DockerHub.
 
 To use local builds, go respectively to the [hortus-api]() and [hortus-web-app]() submodules and read the documentation on how to build the local images.
