@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3"
 
 services:
   # proxy:
@@ -14,6 +14,7 @@ services:
   #   command: [nginx, "-g", "daemon off;"]
   api:
     image: alexandrelamberty/hortus-api:${API_IMAGE_TAG}
+    container_name: hortus-api
     environment:
       - ENV=${API_NODE_ENV}
       - PAIRING_KEY=${API_PAIRING_KEY}
@@ -40,7 +41,7 @@ services:
     restart: unless-stopped
   web:
     image: alexandrelamberty/hortus-web-app:${WEB_APP_IMAGE_TAG}
-    container_name: hortus-web
+    container_name: hortus-web-app
     environment:
       - REACT_APP_NODE_ENV=${WEB_APP_ENV}
       - REACT_APP_API_URL=${WEB_APP_API_URL}
@@ -95,7 +96,7 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: ${DATABASE_ROOT_USER}
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${DATABASE_ROOT_PASSWORD}
-      ME_CONFIG_MONGODB_URL: mongodb://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@hortus-database:27017/${DATABASE_NAME}
+      ME_CONFIG_MONGODB_URL: ${API_DATABASE_URI}
     depends_on:
       - database
   redis-commander:
