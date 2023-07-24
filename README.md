@@ -136,10 +136,6 @@ The stack is composed of 5 services. see: `docker-compose.yml`
 
   DockerHub: [hortus-web-app:latest](https://hub.docker.com/r/alexandrelamberty/hortus-web-app)
 
-- Proxy
-  
-  An [Nginx](https://www.nginx.com/) reverse proxy to serve the client and API.
-
 - Database
   
   A non-relational document database, [MongoDB](https://hub.docker.com/_/mongo).
